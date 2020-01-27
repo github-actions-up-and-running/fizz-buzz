@@ -1,0 +1,32 @@
+name: Continuous Integration
+on: push
+
+jobs:
+  unit-test:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.0.0
+      - name: Set Node.js 12.x
+        uses: actions/setup-node@v1.3.0
+        with:
+          node-version: 12.x
+      - name: Install dependencies
+        run: npm ci
+      - name: Test
+        run: npm test
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.0.0
+      - name: Set Node.js 12.x
+        uses: actions/setup-node@v1.3.0
+        with:
+          node-version: 12.x
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
