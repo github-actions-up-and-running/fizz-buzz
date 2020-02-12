@@ -4,18 +4,14 @@ on: push
 jobs:
   unit-test:
     name: Unit Test
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node: [10, 12]
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v2.0.0
-      - name: Set Node.js ${{ matrix.node }}
+      - name: Set Node.js 12
         uses: actions/setup-node@v1.3.0
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 12
       - name: Get NPM cache directory
         id: npm-cache
         run: |
@@ -34,11 +30,11 @@ jobs:
       - name: Upload test coverage
         uses: actions/upload-artifact@v1.0.0
         with:
-          name: test-coverage-${{ matrix.os }}-${{ matrix.node }}
+          name: test-coverage
           path: coverage
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v2.0.0
